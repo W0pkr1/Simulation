@@ -1,0 +1,209 @@
+\documentclass{article}[18pt]
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[magyar]{babel}
+\usepackage[top=1.5cm,bottom=1.5cm,left=1.5cm,right=1.5cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage[demo]{graphicx}
+\usepackage{subfig}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\vspace*{1cm}
+ 
+\Huge
+\textit{Számítógépes szimulációk
+}
+ 
+\LARGE
+\vspace{2cm}
+5. beadandó\\
+\textbf{Populációdinamika}
+\vfill
+    
+ 
+\vspace{0.8cm}
+Godó Dániel\\
+W0PKR1\\
+2021.03.28\\
+ 
+\end{center}
+\end{titlepage}
+\newpage
+ \tableofcontents
+ \newpage
+\section{Bevezető}
+Ebben a beadandóban populációdinaimikával kapcsolatos feladatokat kaptunk. A populációdinamikában az alapfeltevés, hogy minden populáció $n$ létszámmal rendelkezik, ami az idő függvényében változik. Ha egy populációt megfigyelve felfedezhetünk valamilyen fajta szaporodási rátát, ami azt fejezi ki, hogy adott $delta t$ idő alatt mennyi utód jön a világra akkor azt  a következő egyenlettel írhatjuk le:
+\begin{equation}
+    n(t+\Delta t)=n(t)+an(t)
+    \label{visibility}
+\end{equation}
+ahol az $a$ jelöli magát a szaoiridási rátát. Az előbb említett egyenletet átalakítva a következőt kapjuk:
+\begin{equation}
+    \frac{dn}{dt}=an
+    \label{visibility}
+\end{equation}
+aminek tudjuk, hogy a megoldása exponenciális. Ebből így látható, hogy egy adott $a$ szaporodási rátával rendelkező populáció száma exponcenciálisan növekszik:
+\begin{equation}
+    n=e^{at}
+    \label{visibility}
+\end{equation}
+Ezt a fajta közelítést még mindig lehet csiszolni azáltal, ha bevezetünk egy úgynevezett $d$ halálozási rátát.
+\begin{equation}
+    \frac{dn}{dt}=an-dn
+    \label{visibility}
+\end{equation}
+amely megoldására a következő egyenletre juthatunk, ha behelyettesítjük az $r=a-d$-t:
+\begin{equation}
+    n=e^{rt}
+    \label{visibility}
+\end{equation}
+Ebből az egyszeri közelítésből látszódik, hogy ha a szaporodási ráta nagyobb mint a halálozási, akkor ez egy egyre gyorsuló növekedéshez vezet illetve fordított esetben, ha többen halnak meg mint születnek akkor a 0-hoz közelítünk.
+Az egyenletet mégtovábbi paraméterekkel csiszolhatjuk mint például, ha bevezetjük, hogy a populációk számára véges erőforrások vannak jelen. Az egyenletünkbe bevezetjük ezt a tényezőt egy F(n) szorzótagként és akkor a következő képpen néz ki:
+\begin{equation}
+    \frac{dn}{dt}=rnF(n)
+    \label{visibility}
+\end{equation}
+Ha feltesszük, hogy a maximális populáció , amit az erőforrás fel tud tartani az $k$ és veszük a legegyszerűbb lineáris esetet akkor a következő egyenletet kapjuk $F(n)$-re:
+\begin{equation}
+    F(n)=1-\frac{n}{k}
+    \label{visibility}
+\end{equation}
+Ebből a differenciálegyenlet:
+\begin{equation}
+    \frac{dn}{dt}=rn(1-\frac{n}{k})
+    \label{visibility}
+\end{equation}
+Amelynek a megoldása a következő egyenlet:
+\begin{equation}
+    x(t)=\frac{1}{1+(\frac{1}{x_0}-1)e^{-rt}}
+    \label{visibility}
+\end{equation}
+\newpage
+\section{Első feladat}
+Az első feladatsorán az Euler léptetési módszer és a Runge-Kutta módszer segítségével kellett megoldanunk a differenciálegyenletet és azokat összehasonlítani. A feladat célja az volt, hogy az előadás fóliáján lévő ábrákat rekonstruáljuk. A feladat szimulációja során az Euler és Runge-Kutta szimulációkat is 100 lépésig futattam azonban a könnyebb összehasonlításért az első 10 lépést ábrázoltam.
+Az Euler módszerre az alábbi ábrákat kaptam.
+
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{eulerr0.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{eulerr05.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{eulerr1.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{eulerrm1.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{eulerrm05.png} }}% 
+\end{figure}
+
+Ahogy ez a képeken is látszik az Euler módszer szépen visszaadta az órai fóliákon lévő ábrákat. A nagyobb abszolútértékű r paraméterű szimulációk gyorsabban konvergálnak a nullához és látható hogy r=0 esetén a populáció telítettsége konstans. 
+
+A Runge-Kutte módszerre pedig ezeket az ábrákat kaptam: 
+\newpage
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{Runger0.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Runger05.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Runger1.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Rungerm1.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Rungerm05.png} }}% 
+\end{figure}
+
+Ennél a módszernél is látható, hogy jól visszaadja az előadás fóliákon látható ábrákat és nagy különbség nem látható a két módszer között sem.
+\newpage
+A feladat további részében az analitikus megoldást kellett összevetnünk a numerikus megoldásokkal. Itt néhány r paraméter melett számoltam ki és ábrázoltam ugyanazokkal a kezdeti telítettségek mellett az analitikus és numerikus szimulációkat. 
+
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{Öeulerr0.5.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Öeulerr1.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Örungerr0-5.png} }}% 
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Örungerr1.png} }}% 
+\end{figure}
+Az ábrán a kék görbék jelölik az analitikus megoldásokat és értelem szerűen a pirosak a numerikusokat illetve a bal felső ábrán az r=0.5-ös Euler módszer látható. Szerinetm az analitikus és numerikus megoldások is tökéletes fedésben kellene hogy legyenek, azonban nálam az analitikus megoldásban valami félrecsúszott.
+
+\section{Második feladat}
+A második feladat során modelleznünk kellett, hogy mitörténik akkor, ha két faj verseng egymással és egymás erőforrásait fogyasztják. Ezt a jelenséget az alábbi differenciálegyenletk írják le:
+\begin{equation}
+    \frac{dn_1}{dt}=r_{1}n_{1}(1-\frac{n_{1}+\alpha n_{2}}{k_{1}})
+    \label{visibility}
+\end{equation}
+\begin{equation}
+    \frac{dn_2}{dt}=r_{2}n_{2}(1-\frac{n_{2}+\beta n_{1}}{k_{2}})
+    \label{visibility}
+\end{equation}
+ahol $\alpha$ és $\beta$ paraméterek azt fejezik, ki hogy milyen mértékben fogyasztják egymás erőforrásait. Az $\alpha$ és $\beta$ paramétereket ugyanannyinak kellett megválasztanunk és azt kellett bemutatnunk, hogy a két
+faj nem létezhet stabilan együtt, ha a nagyobb $k$ értékű kiszorítja a másikat. A két faj együttélése csak az $\alhpa k2 < k1$ és
+$\beta k1 < k2$ esetében stabil. Az első szimulációnál a paramétereket úgy választottam meg, hogy a két állatfaj létszámát és telítettségét tekintve azonosnak vettem, illetve a szaporodási rátájuk is mind a kettőnek 0.4-volt. A második faj k paraméterét 0.8-nak az elsőjét pedig 0.7-nek vettem.
+\newpage
+Az ábrák pedig a következő képpen néznek ki:
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{2_egyensúly_1.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{2_egyensúly_2.png} }}% 
+\end{figure}
+
+Itt lehet látni, hogy stabilitás alakul ki és ez az előbb leírt feltételeknek és megválasztott paramétereknek köszönhető. Ezután a második szimulációnál az első faj k paraméterét 0.2-re vettem így a feltétel, hogy $\alhpa k2 < k1$ nem teljesül és ezért felbomlik ez a stabilitás.
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{2_negyensúly_1.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{2_negyensúly_2.png} }}% 
+\end{figure}
+
+Ez szépen ki is vehető a baloldali ábrából mivel látszik, hogy az első faj telítettsége hamar eléri a 0-lát.Ezáltal sikerült bizonyítvani, hogy nagyobb $k$ paraméterrel rendelkező populáció kiszorítják a kisebbel rendelkezőt.
+\newpage
+\section{Harmadik feladat}
+A harmadik feladatban a Lotka-Voltera módszert kellett létrehozni. Ez a modell egy préda populáció és az őket fogyasztó ragadozók populációját leírására alkalmas. A modell az alábbi differenciálegyenleteket használja:
+\begin{equation}
+    \frac{dn_R}{dt}=an_{R}-bn_{F}n_{R}
+    \label{visibility}
+\end{equation}
+\begin{equation}
+    \frac{dn_F}{dt}=cn_{F}n_{R}-dn_{F}
+    \label{visibility}
+\end{equation}
+
+ahol az $n_{R}$ a nyulak száma ,$a$ az a nyulak szaporodási rátája, $bn_{F}$ a nyulak pusztulási rátája, $n_{F}$ a rókák száma, $cn_{R}$ a rókák szaporodási rátája, és $d$ a rókák pusztulási rátája.A modellhez az alábbi paramtéreket használtam:
+\begin{itemize}
+    \item $a=0.34$
+    \item $b=0.002$
+    \item $c=0.0025$
+    \item $d=0.89$
+    \item $n_{F}=250$
+    \item $n_{R}=100$
+\end{itemize}
+Az ábrák pedig a következőek:
+\begin{figure}[h]
+    \centering
+    \subfloat{{\includegraphics[width=7.5cm]{egyedek_száma.png} }}%
+    \qquad
+    \subfloat{{\includegraphics[width=7.5cm]{Lotke-Voltera.png} }}% 
+\end{figure}
+Ezeken az ábrákon jól látszik, hogy a nyulak növekedésévét és csökkenését a rókák hasonló populáció mozgása követi.
+
+\section{Összefoglalás}
+A feladatokat többségét sikeresnek mondhatom kivétel az első feladat második felét. A második és harmadik feladat megoldása során Runge-Kutte léptetést használtam. A megírt programot csatolom a jegyzőkönyv mellé de feltöltöm erre a linkre is:
+\href{https://github.com/W0pkr1/Simulation.git}{ide kattints}.
+\end{document}
+
+
+
